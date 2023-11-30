@@ -1,0 +1,33 @@
+name: "Deploy my challenge 1"
+
+on:
+    push:
+        branches: 
+            - dev
+
+jobs:
+    deployment-in-dev-env:
+        runs-on: ubuntu-latest
+        permissions: 
+            contents: 'read'
+            id-token: 'write'
+        
+        steps:
+            - name: checkout my code
+              uses: actions/checkout@v3
+
+            - id: 'auth'
+              name: 'Authenticate to GCP DEV project'
+              uses: 'google-github-actions/auth@v1'
+              with:
+                  token_format: 'acces-token'
+                  workload_identity_provider: 'projects/582799354522/locations/global/workloadIdentityPools/mypoolid-2/providers/myproviderid-2'
+                  service_account: my-cloudfunction-sa@plated-hash-405319.iam.gserviceaccount.com
+
+            - name: 'Initializing terraform'
+              run: |
+                cd terraform
+                terraform init
+                terraform apply -auto-approve
+              env:
+                TF_VAR_sa_dev: "saerviceaccount email"

@@ -42,4 +42,11 @@ resource "google_cloudfunctions_function" "cf_4_challenge-1-cicd" {
     runtime = "python310"
     source_archive_bucket = google_storage_bucket.cf_source_code_4_challenge-1-cicd.name
     source_archive_object = google_storage_bucket_object.cf_code_object_4_challenge-1-cicd.name
+
+    event_trigger {
+      event_type = "google.storage.object.finalize"
+      resource = google_storage_bucket.cf_source_bucket_4_challenge-1-cicd.name
+    }
+
+    service_account_email = var.sa_dev
 }

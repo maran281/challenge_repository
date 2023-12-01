@@ -4,7 +4,7 @@ on:
     push:
         branches: 
             - dev
-
+ 
 jobs:
     deployment-in-dev-env:
         runs-on: ubuntu-latest
@@ -21,8 +21,8 @@ jobs:
               uses: 'google-github-actions/auth@v1'
               with:
                   token_format: 'acces-token'
-                  workload_identity_provider: 'projects/582799354522/locations/global/workloadIdentityPools/mypoolid-2/providers/myproviderid-2'
-                  service_account: my-cloudfunction-sa@plated-hash-405319.iam.gserviceaccount.com
+                  workload_identity_provider: 'projects/432600233474/locations/global/workloadIdentityPools/mypoolid-devproject-1/providers/myproviderid-devproject-1'
+                  service_account: sa-dev-4-challenge-1-cicd@dev-project-406720.iam.gserviceaccount.com
 
             - name: 'Initializing terraform'
               run: |
@@ -30,4 +30,4 @@ jobs:
                 terraform init
                 terraform apply -auto-approve
               env:
-                TF_VAR_sa_dev: "saerviceaccount email"
+                TF_VAR_sa_dev: "sa-dev-4-challenge-1-cicd@dev-project-406720.iam.gserviceaccount.com"

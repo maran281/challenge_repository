@@ -31,3 +31,4 @@ jobs:
                 terraform apply -auto-approve
               env:
                 TF_VAR_sa_dev: "sa-dev-4-challenge-1-cicd@dev-project-406720.iam.gserviceaccount.com"
+                

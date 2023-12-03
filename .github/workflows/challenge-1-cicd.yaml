@@ -22,7 +22,7 @@ jobs:
               name: 'Authenticate to GCP DEV project'
               uses: 'google-github-actions/auth@v1'
               with:
-                  token_format: 'acces-token'
+                  token_format: 'access-token'
                   workload_identity_provider: 'projects/432600233474/locations/global/workloadIdentityPools/mypoolid-devproject-1/providers/myproviderid-devproject-1'
                   service_account: sa-dev-4-challenge-1-cicd@dev-project-406720.iam.gserviceaccount.com
 

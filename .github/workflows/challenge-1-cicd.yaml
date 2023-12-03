@@ -2,16 +2,18 @@ name: "Deploy my challenge 1"
 
 on:
     push:
-        branches: 
+        branches:
             - dev
- 
+        paths: 
+            - 'challenge-1-cicd/**'
+
 jobs:
     deployment-in-dev-env:
         runs-on: ubuntu-latest
         permissions: 
             contents: 'read'
             id-token: 'write'
-        
+
         steps:
             - name: checkout my code
               uses: actions/checkout@v3
@@ -26,9 +28,8 @@ jobs:
 
             - name: 'Initializing terraform'
               run: |
-                cd terraform
+                cd challenge-1-cicd/terraform
                 terraform init
                 terraform apply -auto-approve
               env:
                 TF_VAR_sa_dev: "sa-dev-4-challenge-1-cicd@dev-project-406720.iam.gserviceaccount.com"
-                

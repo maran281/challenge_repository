@@ -6,6 +6,8 @@ on:
             - dev
         paths: 
             - 'challenge-1-cicd/**'
+env:
+  status_val: "fail"
 
 jobs:
     deployment-in-dev-env:
@@ -67,8 +69,7 @@ jobs:
             run: |
               if gsutil stat gs://cf_target_bucket_4_challenge-1-cicd/processed_file.txt 
               then
-                echo "status_val=pass" >> $GITHUB_ENV
-                echo "file exist"
+                status_val = 'success'
                 echo $status_val
               else
                 echo "file doesnt exist"

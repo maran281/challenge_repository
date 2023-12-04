@@ -29,6 +29,7 @@ jobs:
             - name: 'Initializing terraform'
               run: |
                 cd challenge-1-cicd/terraform
+                ls
                 terraform init
                 terraform apply -auto-approve
               env:

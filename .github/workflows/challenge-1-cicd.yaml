@@ -6,8 +6,6 @@ on:
             - dev
         paths: 
             - 'challenge-1-cicd/**'
-env:
-  status_val: "fail"
 
 jobs:
     deployment-in-dev-env:

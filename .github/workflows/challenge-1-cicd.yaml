@@ -65,7 +65,8 @@ jobs:
           
           - name: 'validate the testing'
             run: |
-              if gsutil stat gs://cf_target_bucket_4_challenge-1-cicd/processed_file.txt then
+              if gsutil stat gs://cf_target_bucket_4_challenge-1-cicd/processed_file.txt 
+              then
                 echo 'file exists'
               else
                 echo 'file doesnt exist'

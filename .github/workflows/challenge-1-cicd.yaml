@@ -72,7 +72,7 @@ jobs:
                 echo "status_val=pass" >> $GITHUB_ENV
                 echo "file exist"
               else
-                echo "file doesnt exist2
+                echo "file doesnt exist"
               fi
 
     code-merge-in-prod-env:

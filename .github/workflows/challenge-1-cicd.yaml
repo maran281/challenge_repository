@@ -71,6 +71,7 @@ jobs:
               then
                 echo "status_val=pass" >> $GITHUB_ENV
                 echo "file exist"
+                echo $status_val
               else
                 echo "file doesnt exist"
               fi

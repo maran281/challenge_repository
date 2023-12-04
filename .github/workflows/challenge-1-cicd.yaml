@@ -69,10 +69,10 @@ jobs:
             run: |
               if gsutil stat gs://cf_target_bucket_4_challenge-1-cicd/processed_file.txt 
               then
-                status_val= "success"
-                echo "test1"
-                echo $status_val
-                echo "test2"
+                echo "status_val=pass" >> $GITHUB_ENV
+                echo "file exist"
+                echo "status_val=$status_val"
+                echo "file exist twice"
               else
                 echo "file doesnt exist"
               fi

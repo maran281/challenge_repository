@@ -58,7 +58,7 @@ jobs:
           
           - name: 'test the deployed cloud function'
             run: |
-              cd /challenge-1-cicd/testing
+              cd challenge-1-cicd/testing
               gsutil cp testFile.txt gs://cf_source_bucket_4_challenge-1-cicd/test_file1_trigger.txt
           
           - name: 'validate the testing'

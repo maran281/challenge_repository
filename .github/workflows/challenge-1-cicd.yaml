@@ -59,7 +59,8 @@ jobs:
           
           - name: 'test the deployed cloud function'
             run: |
-              ls -R $GITHUB_WORKSPACE
+              cd $GITHUB_WORKSPACE/challenge-1-cicd
+              ls
               gsutil cp $GITHUB_WORKSPACE/challenge-1-cicd/testing/testFile.txt gs://cf_source_bucket_4_challenge-1-cicd/test_file1_trigger.txt
           
           - name: 'validate the testing'

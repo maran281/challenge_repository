@@ -69,8 +69,10 @@ jobs:
             run: |
               if gsutil stat gs://cf_target_bucket_4_challenge-1-cicd/processed_file.txt 
               then
-                status_val = 'success'
+                status_val= "success"
+                echo "test1"
                 echo $status_val
+                echo "test2"
               else
                 echo "file doesnt exist"
               fi

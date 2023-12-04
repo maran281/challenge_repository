@@ -29,7 +29,6 @@ jobs:
             - name: 'Initializing terraform'
               run: |
                 cd challenge-1-cicd/terraform
-                ls
                 terraform init
                 terraform apply -auto-approve
               env:
@@ -46,6 +45,9 @@ jobs:
           id-token: 'write'
         
         steps:
+          - name: checkout my code
+            uses: actions/checkout@v3
+            
           - id: 'auth'
             name: 'Authenticate to GCP DEV project'
             uses: 'google-github-actions/auth@v1'
@@ -59,8 +61,6 @@ jobs:
           
           - name: 'test the deployed cloud function'
             run: |
-              cd $GITHUB_WORKSPACE/challenge-1-cicd/terraform
-              ls
               gsutil cp $GITHUB_WORKSPACE/challenge-1-cicd/testing/testFile.txt gs://cf_source_bucket_4_challenge-1-cicd/test_file1_trigger.txt
           
           - name: 'validate the testing'

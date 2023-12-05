@@ -76,7 +76,7 @@ jobs:
               then
                 echo "status_val=pass" >> $GITHUB_ENV
                 echo "file exist"
-                echo "value of status_val is: $status_val"
+                echo "value of status_val is: $GITHUB_ENV"
               else
                 echo "::set-output name=status_val::fail"
                 echo "file doesnt exist"

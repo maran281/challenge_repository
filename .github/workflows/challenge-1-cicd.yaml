@@ -74,11 +74,11 @@ jobs:
             run: |
               if gsutil stat gs://cf_target_bucket_4_challenge-1-cicd/processed_file.txt 
               then
-                export status_val = "pass"
+                export status_val = pass
                 echo "file exist"
                 echo "value of status_val is: $status_val"
               else
-                export status_val = "fail"
+                export status_val = fail
                 echo "file doesnt exist"
                 echo "value of status_val is: $status_val"
               fi

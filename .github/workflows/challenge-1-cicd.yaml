@@ -74,30 +74,15 @@ jobs:
             run: |
               if gsutil stat gs://cf_target_bucket_4_challenge-1-cicd/processed_file.txt 
               then
+                export status_val=pass
                 echo "file exist"
-                echo "status_val=pass" >> $GITHUB_ENV
-                echo "value of status_val is: $status_val"
+                echo "status_val=$status_val" >> $GITHUB_ENV
               else
                 export status_val=fail
                 echo "file doesnt exist"
-                echo "value of status_val is: $status_val"
+                echo "status_val=$status_val" >> $GITHUB_ENV
               fi
               echo "status_val=$status_val" >> $CI_JOB_NAME.env
-          
- #         - name: 'validate the testing'
-  #          id: status
-   #         run: |
-    #          if gsutil stat gs://cf_target_bucket_4_challenge-1-cicd/processed_file.txt 
-     #         then
-      #          export status_val=pass
-       #         echo "file exist"
-        #        echo "value of status_val is: $status_val"
-         #     else
-          #      export status_val=fail
-           #     echo "file doesnt exist"
-            #    echo "value of status_val is: $status_val"
-             # fi
-              #echo "status_val=$status_val" >> $CI_JOB_NAME.env
         
 
     code-merge-in-prod-env:

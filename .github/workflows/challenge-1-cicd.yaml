@@ -89,7 +89,7 @@ jobs:
       steps:
         - name: checkout code
           uses: actions/checkout@v2
-
+          
         - name: setup GIT
           run: |
             echo "value of status_val is: ${{ needs.verify-deployment-in-dev-env.outputs.myoutput }}"

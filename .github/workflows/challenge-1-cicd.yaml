@@ -38,6 +38,10 @@ jobs:
     verify-deployment-in-dev-env:
         runs-on: ubuntu-latest
 
+        #below step produces an output of this job.
+        #output result will be stored inside myoutput.
+        #value of myoutput will be fetched from 
+        #steps.<stepid where outout is generated>.outputs.<variable which is generating output>
         outputs:
           myoutput: ${{steps.verify-deployment-in-dev-env.outputs.status_val}}
 
@@ -47,11 +51,11 @@ jobs:
         permissions: 
           contents: 'read'
           id-token: 'write'
-        
+
         steps:
           - name: checkout my code
             uses: actions/checkout@v3
-            
+
           - id: 'auth'
             name: 'Authenticate to GCP DEV project'
             uses: 'google-github-actions/auth@v1'
@@ -77,10 +81,6 @@ jobs:
               else
                 echo "status_val=fail" >> $GITHUB_OUTPUT
               fi
-            
-              echo "DEBUG: status_val before setting=${{ env.status_val }}"
-              echo "status_val=${{ env.status_val }}" >> $GITHUB_ENV
-              echo "DEBUG: status_val after setting=${{ env.status_val }}"
 
     code-merge-in-prod-env:
       runs-on: ubuntu-latest
@@ -89,7 +89,7 @@ jobs:
       steps:
         - name: checkout code
           uses: actions/checkout@v2
-          
+
         - name: setup GIT
           run: |
             echo "value of status_val is: ${{ needs.verify-deployment-in-dev-env.outputs.myoutput }}"
@@ -98,6 +98,6 @@ jobs:
 
         - name: Merge code from dev to test
           run: |
-            git checkout test
+            git checkout -b test origin/test
             git pull origin dev
             git push origin test

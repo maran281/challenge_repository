@@ -98,6 +98,6 @@ jobs:
 
         - name: Merge code from dev to test
           run: |
-            git checkout -b test origin/test
+            git checkout -b test
             git pull origin dev
             git push origin test

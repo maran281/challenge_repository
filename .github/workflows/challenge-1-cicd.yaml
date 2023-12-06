@@ -38,6 +38,9 @@ jobs:
     verify-deployment-in-dev-env:
         runs-on: ubuntu-latest
 
+        outputs:
+          myoutput: ${{steps.verify-deployment-in-dev-env.outputs.status_val}}
+
         needs: deployment-in-dev-env
         if: success()
 
@@ -65,14 +68,14 @@ jobs:
               gsutil cp $GITHUB_WORKSPACE/challenge-1-cicd/testing/testFile.txt gs://cf_source_bucket_4_challenge-1-cicd/test_file1_trigger.txt
           
           - name: 'validate the testing'
-            id: verify-deployment-in-dev-env
+            id: 'verify-deployment-in-dev-env'
             run: |
               if gsutil stat gs://cf_target_bucket_4_challenge-1-cicd/processed_file.txt 
               then
-                echo "export status_val=pass" >> $GITHUB_ENV
+                echo "status_val=pass" >> $GITHUB_OUTPUT
                 echo "File exist"
               else
-                echo "status_val=fail" >> $GITHUB_ENV
+                echo "status_val=fail" >> $GITHUB_OUTPUT
               fi
             
               echo "DEBUG: status_val before setting=${{ env.status_val }}"
@@ -82,7 +85,6 @@ jobs:
     code-merge-in-prod-env:
       runs-on: ubuntu-latest
       needs: verify-deployment-in-dev-env
-      if: success()
 
       steps:
         - name: checkout code
@@ -90,7 +92,7 @@ jobs:
 
         - name: setup GIT
           run: |
-            echo "value of status_val is: ${{ env.status_val }}"
+            echo "value of status_val is: ${{ needs.verify-deployment-in-dev-env.outputs.myoutput }}"
             git config user.name "Luffy"
             git config user.email "naruto_blablabla@gmail.com"
 

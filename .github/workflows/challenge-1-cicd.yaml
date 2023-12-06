@@ -14,9 +14,6 @@ jobs:
             contents: 'read'
             id-token: 'write'
 
-        outputs:
-          steps_status: ${{ needs.verify-deployment-in-dev-env.outputs.status_val }}
-
         steps:
             - name: checkout my code
               uses: actions/checkout@v3
@@ -39,9 +36,6 @@ jobs:
 
     verify-deployment-in-dev-env:
         runs-on: ubuntu-latest
-
-        outputs:
-          status_val: ${{ steps.status.outputs.status_val }}
 
         needs: deployment-in-dev-env
         if: success()
@@ -82,8 +76,12 @@ jobs:
                 echo "file doesnt exist"
                 echo "value of status_val is: $status_val"
               fi
+              
               echo "status_val=$status_val" >> $CI_JOB_NAME.env
-        
+          
+        outputs:
+            status_val: ${{steps.verify-deployment-in-dev-env.outputs.status_val}}
+                   
 
     code-merge-in-prod-env:
       runs-on: ubuntu-latest

@@ -64,7 +64,7 @@ jobs:
               gsutil cp $GITHUB_WORKSPACE/challenge-1-cicd/testing/testFile.txt gs://cf_source_bucket_4_challenge-1-cicd/test_file1_trigger.txt
           
           - name: 'validate the testing'
-            id: status
+            id: verify-deployment-in-dev-env
             run: |
               if gsutil stat gs://cf_target_bucket_4_challenge-1-cicd/processed_file.txt 
               then

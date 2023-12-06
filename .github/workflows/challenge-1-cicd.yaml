@@ -74,19 +74,16 @@ jobs:
             run: |
               if gsutil stat gs://cf_target_bucket_4_challenge-1-cicd/processed_file.txt 
               then
-                echo "export status_val=pass" >> $GITHUB_ENV
+                export status_val=pass
                 echo "file exist"
+                echo "value of status_val is: $status_val"
               else
-                echo "export status_val=fail" >> $GITHUB_ENV
+                export status_val=fail
                 echo "file doesnt exist"
+                echo "value of status_val is: $status_val"
               fi
-            env:
-              STATUS_VAL: ${{ steps.status.outputs.status_val }}  
-            
-          - name: 'Save verification status as artifact'
-            run: echo "$STATUS_VAL" > verify-deployment-in-dev-env.env
-            env:
-              STATUS_VAL: ${{ steps.status.outputs.status_val }}
+              echo "status_val=$status_val" >> $CI_JOB_NAME.env
+        
 
     code-merge-in-prod-env:
       runs-on: ubuntu-latest
@@ -97,16 +94,8 @@ jobs:
         - name: checkout code
           uses: actions/checkout@v2
 
-        - name: Download verification status artifact
-          uses: actions/download-artifact@v2
-          with:
-            name: verify-deployment-in-dev-env
-            path: ${{ github.workspace }}
-
         - name: setup GIT
           run: |
-            source verify-deployment-in-dev-env.env
-            echo "variable value is: $STATUS_VAL"
             git config user.name "Luffy"
             git config user.email "naruto_blablabla@gmail.com"
 

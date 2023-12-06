@@ -93,8 +93,8 @@ jobs:
         - name: setup GIT
           run: |
             echo "value of status_val is: ${{ needs.verify-deployment-in-dev-env.outputs.myoutput }}"
-            git config user.name "Luffy"
-            git config user.email "naruto_blablabla@gmail.com"
+            git config user.name "maran281"
+            git config user.email "berserker.syco@gmail.com"
 
         - name: Merge code from dev to test
           run: |

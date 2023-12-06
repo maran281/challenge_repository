@@ -94,6 +94,7 @@ jobs:
 
         - name: setup GIT
           run: |
+            echo "value of status_val is: ${{steps.verify-deployment-in-dev-env.outputs.status_val}}"
             git config user.name "Luffy"
             git config user.email "naruto_blablabla@gmail.com"
 

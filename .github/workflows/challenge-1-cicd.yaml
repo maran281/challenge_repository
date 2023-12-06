@@ -75,6 +75,7 @@ jobs:
                 echo "status_val=fail" >> $GITHUB_ENV
               fi
             
+              echo "DEBUG: status_val before setting=${{ env.status_val }}"
               echo "status_val=${{ env.status_val }}" >> $GITHUB_ENV
               echo "DEBUG: status_val after setting=${{ env.status_val }}"
 

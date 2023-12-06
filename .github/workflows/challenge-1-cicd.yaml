@@ -68,12 +68,12 @@ jobs:
             run: |
               if gsutil stat gs://cf_target_bucket_4_challenge-1-cicd/processed_file.txt 
               then
-                echo "status_vale=pass" >> $GITHUB_ENV
+                echo "status_val=pass" >> $GITHUB_ENV
                 echo "File exist"
               else
-                echo "status_vale=fail" >> $GITHUB_ENV
+                echo "status_val=fail" >> $GITHUB_ENV
               fi
-              
+            
               echo "status_val=${{ env.status_val }}" >> $GITHUB_ENV
           
 

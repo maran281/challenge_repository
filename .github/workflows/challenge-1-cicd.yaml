@@ -77,9 +77,16 @@ jobs:
                 echo "export status_val=pass" >> $GITHUB_ENV
                 echo "file exist"
               else
-                echo "export status_val=pass" >> $GITHUB_ENV
+                echo "export status_val=fail" >> $GITHUB_ENV
                 echo "file doesnt exist"
-              fi        
+              fi
+            env:
+              STATUS_VAL: ${{ steps.status.outputs.status_val }}  
+            
+          - name: 'Save verification status as artifact'
+            run: echo "$STATUS_VAL" > verify-deployment-in-dev-env.env
+            env:
+              STATUS_VAL: ${{ steps.status.outputs.status_val }}
 
     code-merge-in-prod-env:
       runs-on: ubuntu-latest
@@ -90,10 +97,16 @@ jobs:
         - name: checkout code
           uses: actions/checkout@v2
 
+        - name: Download verification status artifact
+          uses: actions/download-artifact@v2
+          with:
+            name: verify-deployment-in-dev-env
+            path: ${{ github.workspace }}
+
         - name: setup GIT
           run: |
-            source <(cat verify-deployment-in-dev-env.env)
-            echo "variable value is: $status_val"
+            source verify-deployment-in-dev-env.env
+            echo "variable value is: $STATUS_VAL"
             git config user.name "Luffy"
             git config user.email "naruto_blablabla@gmail.com"
 

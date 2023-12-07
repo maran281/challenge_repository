@@ -18,5 +18,6 @@ jobs:
           git config user.email "actions@github.com"
           git config user.name "GitHub Actions"
           git checkout test
+          git pull origin test
           git merge --no-ff ${{ github.sha }}
           git push origin test2

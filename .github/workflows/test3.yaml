@@ -1,23 +1,18 @@
-name: Merge test into test2
-
+name: Sync multiple branches
 on:
   push:
     branches:
       - test3
-
 jobs:
-  merge-branches:
+  sync-branch:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+      - uses: actions/checkout@master
 
-      - name: Merge test3 into test4
-        run: |
-          git config user.email "actions@github.com"
-          git config user.name "GitHub Actions"
-          git checkout test3
-          git pull origin test
-          git merge --no-ff ${{ github.sha }}
-          git push origin test4
+      - name: Merge test3 -> test4
+        uses: devmasx/merge-branch@master
+        with:
+          type: now
+          from_branch: test3
+          target_branch: test4
+          github_token: ${{ secrets.GITHUB_TOKEN }}

@@ -13,6 +13,5 @@ jobs:
         uses: devmasx/merge-branch@master
         with:
           type: now
-          from_branch: test3
           target_branch: test4
           github_token: ${{ secrets.GITHUB_TOKEN }}

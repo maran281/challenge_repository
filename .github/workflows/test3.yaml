@@ -1,19 +1,25 @@
-name: Sync multiple branches
+name: Merge test3 to test4
+
 on:
   push:
     branches:
       - test3
+
 jobs:
-  sync-branch:
+  merge-to-test4:
     runs-on: ubuntu-latest
+
     steps:
-      - name: checkout code
-        uses: actions/checkout@master
-    
-      - name: check the current branch
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Git
         run: |
-          echo "Merge is now starting."
-          git clone -b test4 https://github.com/maran281/challenge_repository.git
+          git config user.email "actions@github.com"
+          git config user.name "GitHub Actions"
+
+      - name: Merge test3 to test4
+        run: |
           git checkout test4
-          git merge test3
-        
+          git merge --no-ff ${{ github.sha }}
+          git push origin test4

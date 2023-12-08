@@ -13,6 +13,7 @@ jobs:
       - name: check the current branch
         run: |
           echo "Merge is now starting."
+          git clone -b test4 https://github.com/maran281/challenge_repository.git
           git checkout test4
           git merge test3
         

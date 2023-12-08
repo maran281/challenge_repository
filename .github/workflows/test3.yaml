@@ -7,11 +7,10 @@ jobs:
   sync-branch:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@master
-
-      - name: Merge test3 -> test4
-        uses: devmasx/merge-branch@master
-        with:
-          type: now
-          target_branch: test4
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+      - name: checkout code
+        uses: actions/checkout@master
+    
+      - name: check the current branch
+        run: |
+          echo "WF is completed."
+        

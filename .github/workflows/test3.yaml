@@ -1,0 +1,17 @@
+name: Sync multiple branches
+on:
+  push:
+    branches:
+      - test3
+jobs:
+  sync-branch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+
+      - name: Merge test3 -> test4
+        uses: devmasx/merge-branch@master
+        with:
+          type: now
+          target_branch: test4
+          github_token: ${{ secrets.GITHUB_TOKEN }}

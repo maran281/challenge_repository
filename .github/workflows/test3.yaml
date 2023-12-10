@@ -17,9 +17,9 @@ jobs:
         run: |
            currernt_directory=$(pwd)
            echo "current drectory is: $currernt_directory"
-           cd currernt_directory
-           currernt_directory=$(pwd)
-           echo "current drectory is: $currernt_directory"
+           git init
+           git checkout test4 
+           git merge test3
 #          git config user.email "actions@github.com"
  #         git config user.name "GitHub Actions"
  #         git checkout test4

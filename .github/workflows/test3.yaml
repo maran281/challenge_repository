@@ -15,8 +15,8 @@ jobs:
 
       - name: Merge test3 into test4
         run: |
-          git config user.email "actions@github.com"
-          git config user.name "GitHub Actions"
+          git config user.email "maran281@github.com"
+          git config user.name "maran281"
           cd challenge_repository
           git clone -b test4 https://github.com/maran281/challenge_repository.git
           git checkout test4

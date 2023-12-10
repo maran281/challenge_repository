@@ -21,6 +21,8 @@ jobs:
           echo "step2"
           cd $GITHUB_WORKSPACE
           echo "step3"
+          current_directory = $(pwd)
+          echo "current directory is $current_directory"
           git clone -b test4 https://github.com/maran281/challenge_repository.git
           echo "step4"
           git checkout test4

@@ -18,14 +18,8 @@ jobs:
           current_directory=$(pwd)
           echo "1 current directory is $current_directory"
           git config user.email "maran281@github.com"
-          echo "step1"
-          git config user.name "maran281"
-          cd ../../../
-          current_directory=$(pwd)
-          echo "2 current directory is $current_directory"
+          echo *
           echo "step2"
-          git clone -b test4 https://github.com/maran281/challenge_repository.git
-          echo "step3"
           git checkout test4
           echo "step4"
           git merge test3

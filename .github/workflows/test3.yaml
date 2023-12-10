@@ -19,6 +19,7 @@ jobs:
           git clone -b test3 https://github.com/maran281/challenge_repository.git
           echo *
           echo "step2"
+          cd challenge_repository
           git checkout test4
  #         git checkout test4
  #         echo "step4"

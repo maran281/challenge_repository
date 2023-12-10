@@ -21,6 +21,7 @@ jobs:
           echo "step1"
           git config user.name "maran281"
           current_directory=$(pwd)
+          cd ../
           echo "2 current directory is $current_directory"
           echo *
           echo "step2"

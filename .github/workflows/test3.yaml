@@ -15,7 +15,8 @@ jobs:
           current_directory=$(pwd)
           echo "1 current directory is $current_directory"
           git init
-          git config user.email "maran281@github.com"
+          git config --global user.email "maran281@gmail.com"
+          git config --global user.name "maran281"
           git clone -b test3 https://github.com/maran281/challenge_repository.git
           echo *
           echo "step2"

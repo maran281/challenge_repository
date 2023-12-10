@@ -21,6 +21,7 @@ jobs:
           echo "step2"
           cd challenge_repository
           git checkout test4
+          git merge test3
  #         git checkout test4
  #         echo "step4"
  #         git merge test3

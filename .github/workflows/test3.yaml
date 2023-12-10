@@ -22,6 +22,7 @@ jobs:
           git config user.name "maran281"
           current_directory=$(pwd)
           echo "2 current directory is $current_directory"
+          echo *
           echo "step2"
           cd $GITHUB_WORKSPACE
           echo "step3"

@@ -10,19 +10,17 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
       - name: Merge test3 into test4
         run: |
-          current_directory=$(pwd)
-          echo "1 current directory is $current_directory"
-          git init
-          git config --global user.email "maran281@gmail.com"
-          git config --global user.name "maran281"
-          git clone -b test3 https://github.com/maran281/challenge_repository.git
-          echo *
-          echo "step2"
-          cd challenge_repository
-          git checkout test4
-          git merge test3
+           currernt_directory=$(pwd)
+           echo "current drectory is: $currernt_directory"
+           cd currernt_directory
+           currernt_directory=$(pwd)
+           echo "current drectory is: $currernt_directory"
+#          git config user.email "actions@github.com"
+ #         git config user.name "GitHub Actions"
  #         git checkout test4
- #         echo "step4"
- #         git merge test3
+#          git push origin test4

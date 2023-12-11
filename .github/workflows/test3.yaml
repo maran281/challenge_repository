@@ -6,13 +6,21 @@ on:
       - test3
 
 jobs:
-  merge-to-test4:
+  merge-branches:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Set up Git
+      - name: Merge test3 into test4
         run: |
-          echo "hi"
+           currernt_directory=$(pwd)
+           echo "current drectory is: $currernt_directory"
+           git init
+           git checkout test4 
+           git merge test3
+#          git config user.email "actions@github.com"
+ #         git config user.name "GitHub Actions"
+ #         git checkout test4
+#          git push origin test4

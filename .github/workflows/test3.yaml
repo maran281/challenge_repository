@@ -19,7 +19,7 @@ jobs:
       
       - name: checkout my code from test3
         uses: actions/checkout@v3
-        if: steps.test3_branch.outputs == success()
+        if: steps.test3_branch.outcome == 'success'
 
 ####################################################################
 
@@ -31,5 +31,4 @@ jobs:
       
       - name: checkout my code from test4
         uses: actions/checkout@v3
-        if: steps.test4_branch.outputs == success()
-        
+        if: steps.test4_branch.outcome == 'success'

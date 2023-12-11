@@ -16,7 +16,7 @@ jobs:
         if: github.event.ref == 'refs/heads/test3'
         run: |
           echo "Workflow is running for test3 branch"
-          echo "result=success"
+          echo "result=success" 
       
       - name: checkout my code from test3
         uses: actions/checkout@v3

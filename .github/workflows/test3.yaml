@@ -29,7 +29,8 @@ jobs:
         if: github.event.ref == 'refs/heads/test4'
         run: |
           echo "Workflow is running inside test4 branch"
+          echo "rslt=success" >> $GITHUB_ENV
       
       - name: checkout my code from test4
         uses: actions/checkout@v3
-        if: steps.test4_branch.outputs.result == success()
+        if: ${{ env.rslt }} == 'success'

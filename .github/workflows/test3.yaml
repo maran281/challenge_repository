@@ -4,23 +4,21 @@ on:
   push:
     branches:
       - test3
+      - test4
 
 jobs:
   merge-branches:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Merge test3 into test4
+      - name: Checking the current branch
+        id: current-branch
         run: |
-           currernt_directory=$(pwd)
-           echo "current drectory is: $currernt_directory"
-           git init
-           git checkout test4 
-           git merge test3
-#          git config user.email "actions@github.com"
- #         git config user.name "GitHub Actions"
- #         git checkout test4
-#          git push origin test4
+
+      - name: Checkout code
+        if: github.event.ref == 'refs/heads/test3'
+        run: echo "Workflow is running inside test3 branch"
+
+      - name: Checkout code
+        if: github.event.ref == 'refs/heads/test4'
+        run: echo "Workflow is running inside test4 branch"

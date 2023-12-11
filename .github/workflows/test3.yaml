@@ -14,7 +14,9 @@ jobs:
       - name: steps_4_test3_branches
         id: test3_branch
         if: github.event.ref == 'refs/heads/test3'
-        run: echo "Workflow is running for test3 branch"
+        run: |
+          echo "Workflow is running for test3 branch"
+          echo "result=success"
       
       - name: checkout my code
         uses: actions/checkout@v3
@@ -27,6 +29,7 @@ jobs:
         id: test4_branch
         if: github.event.ref == 'refs/heads/test4'
         run: echo "Workflow is running inside test4 branch"
+          echo "result=success"
       
       - name: checkout my code
         uses: actions/checkout@v3

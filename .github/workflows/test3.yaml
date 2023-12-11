@@ -18,9 +18,8 @@ jobs:
           echo "Workflow is running for test3 branch"
           echo "result=success"
       
-      - name: checkout my code
+      - name: checkout my code from test3
         uses: actions/checkout@v3
-        if: steps.test3_branch.outputs.result == success()
 
 ####################################################################
 
@@ -31,6 +30,6 @@ jobs:
           echo "Workflow is running inside test4 branch"
           echo "result=success"
       
-      - name: checkout my code
+      - name: checkout my code from test4
         uses: actions/checkout@v3
         if: steps.test4_branch.outputs.result == success()

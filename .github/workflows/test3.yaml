@@ -7,14 +7,27 @@ on:
       - test4
 
 jobs:
-  merge-branches:
+  trigger-branches:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      - name: steps_4_test3_branches
+        id: test3_branch
         if: github.event.ref == 'refs/heads/test3'
-        run: echo "Workflow is running inside test3 branch"
+        run: echo "Workflow is running for test3 branch"
+      
+      - name: checkout my code
+        uses: actions/checkout@v3
+        if: needs.test3_branch.outputs.result == success()
+
+
+####################################################################
 
       - name: Checkout code
+        id: test4_branch
         if: github.event.ref == 'refs/heads/test4'
         run: echo "Workflow is running inside test4 branch"
+      
+      - name: checkout my code
+        uses: actions/checkout@v3
+        if: needs.test4_branch.outputs.result == success()

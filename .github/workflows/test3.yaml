@@ -14,20 +14,23 @@ jobs:
       - name: steps_4_test3_branches
         id: test3_branch
         if: github.event.ref == 'refs/heads/test3'
-        run: echo "Workflow is running for test3 branch"
+        run: |
+          echo "Workflow is running for test3 branch"
+          echo "rslt=success" >> $GITHUB_ENV
       
-      - name: checkout my code
+      - name: checkout my code from test3
         uses: actions/checkout@v3
-        if: needs.test3_branch.outputs.result == success()
-
+        if: ${{ env.rslt }} == 'success'
 
 ####################################################################
 
       - name: Checkout code
         id: test4_branch
         if: github.event.ref == 'refs/heads/test4'
-        run: echo "Workflow is running inside test4 branch"
+        run: |
+          echo "Workflow is running inside test4 branch"
+          echo "rslt=success" >> $GITHUB_ENV
       
-      - name: checkout my code
+      - name: checkout my code from test4
         uses: actions/checkout@v3
-        if: needs.test4_branch.outputs.result == success()
+        if: ${{ env.rslt }} == 'success'

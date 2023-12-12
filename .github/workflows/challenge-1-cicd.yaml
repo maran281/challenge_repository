@@ -107,3 +107,4 @@ jobs:
             cd challenge_repository
             git checkout test
             git merge dev
+            

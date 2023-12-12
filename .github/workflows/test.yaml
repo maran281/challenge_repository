@@ -1,26 +1,23 @@
-name: Merge Code Between Branches
+name: Merge test into test2
 
 on:
   push:
     branches:
-      - main
-      - feature/*
+      - test
 
 jobs:
   merge-branches:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout main branch
+      - name: Checkout code
         uses: actions/checkout@v2
-        with:
-          ref: main
 
-      - name: Merge feature branch
-        run: git merge ${{ github.event.ref }}
-
-      - name: Push changes to main branch
+      - name: Merge test into test2
         run: |
-          git config --local user.email "actions@github.com"
-          git config --local user.name "GitHub Actions"
-          git push origin main
+          git config user.email "actions@github.com"
+          git config user.name "GitHub Actions"
+          git checkout test
+          git pull origin test
+          git merge --no-ff ${{ github.sha }}
+          git push origin test2

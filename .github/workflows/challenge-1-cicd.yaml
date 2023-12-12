@@ -4,6 +4,8 @@ on:
     push:
         branches:
             - dev
+            - test
+            - main
         paths: 
             - 'challenge-1-cicd/**'
 
@@ -15,6 +17,10 @@ jobs:
             id-token: 'write'
 
         steps:
+            - name: branch check for dev
+              if: github.event.ref != 'refs/heads/dev'
+              run: exit 0
+
             - name: checkout my code
               uses: actions/checkout@v3
 
@@ -35,6 +41,7 @@ jobs:
                 TF_VAR_sa_dev: "sa-dev-4-challenge-1-cicd@dev-project-406720.iam.gserviceaccount.com"
                 status_val: "fail"
 
+#Below job is created to test the deployed cloud function
     verify-deployment-in-dev-env:
         runs-on: ubuntu-latest
 
@@ -66,11 +73,11 @@ jobs:
 
           - name: 'setup my cloud SDK'
             uses: 'google-github-actions/setup-gcloud@v1'
-          
+
           - name: 'test the deployed cloud function'
             run: |
               gsutil cp $GITHUB_WORKSPACE/challenge-1-cicd/testing/testFile.txt gs://cf_source_bucket_4_challenge-1-cicd/test_file1_trigger.txt
-          
+
           - name: 'validate the testing'
             id: 'verify-deployment-in-dev-env'
             run: |
@@ -80,24 +87,23 @@ jobs:
                 echo "File exist"
               else
                 echo "status_val=fail" >> $GITHUB_OUTPUT
+                echo "Testing failed as the file doesn't exist in the target folder. Exiting the workflow"
+                exit 0
               fi
 
+#Below job is created to merge the code in another branch if previous job is successfull
     code-merge-in-prod-env:
       runs-on: ubuntu-latest
       needs: verify-deployment-in-dev-env
 
       steps:
-        - name: checkout code
-          uses: actions/checkout@v2
-
         - name: setup GIT
           run: |
             echo "value of status_val is: ${{ needs.verify-deployment-in-dev-env.outputs.myoutput }}"
-            git config user.name "maran281"
-            git config user.email "berserker.syco@gmail.com"
-
-        - name: Merge code from dev to test
-          run: |
-            git checkout -b test
+            git init
+            git config --global user.name "maran281"
+            git config --global user.email "maran281@github.com"
+            git clone -b dev https://github.com/maran281/challenge_repository.git
+            cd challenge_repository
+            git checkout test
             git merge dev
-            git push origin test

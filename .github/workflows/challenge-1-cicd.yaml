@@ -102,7 +102,7 @@ jobs:
             echo "value of status_val is: ${{ needs.verify-deployment-in-dev-env.outputs.myoutput }}"
             git init
             git config --global user.name "maran281"
-            git config --global user.email "maran281@github.com"
+            git config --global user.email "berserker.syco@gmail.com"
             git clone -b dev https://github.com/maran281/challenge_repository.git
             cd challenge_repository
             git checkout test

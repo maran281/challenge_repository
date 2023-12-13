@@ -16,10 +16,16 @@ jobs:
             contents: 'read'
             id-token: 'write'
 
+        outputs:
+          my_env_check_output: ${{steps.validate_for_dev.outputs.env_val}}
+
         steps:
             - name: branch check for dev
+              id: validate_for_dev
               if: github.event.ref != 'refs/heads/dev'
-              run: exit 0
+              run: |
+                echo "env_val=not_dev" >> $GITHUB_OUTPUT
+                exit 0
 
             - name: checkout my code
               uses: actions/checkout@v3
@@ -53,13 +59,19 @@ jobs:
           myoutput: ${{steps.verify-deployment-in-dev-env.outputs.status_val}}
 
         needs: deployment-in-dev-env
-        if: success()
-
+        
         permissions: 
           contents: 'read'
           id-token: 'write'
 
         steps:
+          - name: check_env
+            run: |
+              if [["${{ needs.deployment-in-dev-env.outputs.my_env_check_output}}" == 'not_dev']]
+              then
+                exit 1
+              fi
+
           - name: checkout my code
             uses: actions/checkout@v3
 
@@ -103,7 +115,7 @@ jobs:
             git init
             git config --global user.name "maran281"
             git config --global user.email "berserker.syco@gmail.com"
-            git clone -b dev https://maran281:${{ secrets.challenge_repo_github_token }}@github.com/maran281/challenge_repository.git
+            git clone -b dev https://maran2814:${{ secrets.challenge_repo_github_token }}@github.com/maran281/challenge_repository.git
             cd challenge_repository
             git checkout test
             git merge dev

@@ -24,8 +24,9 @@ jobs:
               id: validate_for_dev
               if: github.event.ref != 'refs/heads/dev'
               run: |
+                echo "Current Branch: $GITHUB_REF"
                 echo "env_val=not_dev" >> $GITHUB_OUTPUT
-                exit 0
+                exit 1
 
             - name: checkout my code
               uses: actions/checkout@v3

@@ -20,18 +20,12 @@ jobs:
           my_env_check_output: ${{steps.validate_for_dev.outputs.env_val}}
 
         steps:
-            - name: branch check for dev
-              id: validate_for_dev
-              if: github.event.ref != 'refs/heads/dev'
-              run: |
-                echo "Current Branch: $GITHUB_REF"
-                echo "env_val=not_dev" >> $GITHUB_OUTPUT
-                exit 1
-
             - name: checkout my code
+              if: github.event.ref == 'refs/heads/dev' 
               uses: actions/checkout@v3
 
             - id: 'auth'
+              if: github.event.ref == 'refs/heads/dev'
               name: 'Authenticate to GCP DEV project'
               uses: 'google-github-actions/auth@v1'
               with:
@@ -40,6 +34,7 @@ jobs:
                   service_account: sa-dev-4-challenge-1-cicd@dev-project-406720.iam.gserviceaccount.com
 
             - name: 'Initializing terraform'
+              if: github.event.ref == 'refs/heads/dev'
               run: |
                 cd $GITHUB_WORKSPACE/challenge-1-cicd/terraform
                 terraform init
@@ -67,6 +62,7 @@ jobs:
 
         steps:
           - name: check_env
+            if: github.event.ref == 'refs/heads/dev'
             run: |
               if [["${{ needs.deployment-in-dev-env.outputs.my_env_check_output}}" == 'not_dev']]
               then
@@ -74,9 +70,11 @@ jobs:
               fi
 
           - name: checkout my code
+            if: github.event.ref == 'refs/heads/dev'
             uses: actions/checkout@v3
 
           - id: 'auth'
+            if: github.event.ref == 'refs/heads/dev'
             name: 'Authenticate to GCP DEV project'
             uses: 'google-github-actions/auth@v1'
             with:
@@ -85,13 +83,16 @@ jobs:
               service_account: sa-dev-4-challenge-1-cicd@dev-project-406720.iam.gserviceaccount.com
 
           - name: 'setup my cloud SDK'
+            if: github.event.ref == 'refs/heads/dev'
             uses: 'google-github-actions/setup-gcloud@v1'
 
           - name: 'test the deployed cloud function'
+            if: github.event.ref == 'refs/heads/dev'
             run: |
               gsutil cp $GITHUB_WORKSPACE/challenge-1-cicd/testing/testFile.txt gs://cf_source_bucket_4_challenge-1-cicd/test_file1_trigger.txt
 
           - name: 'validate the testing'
+            if: github.event.ref == 'refs/heads/dev'
             id: 'verify-deployment-in-dev-env'
             run: |
               if gsutil stat gs://cf_target_bucket_4_challenge-1-cicd/processed_file.txt 
@@ -111,6 +112,7 @@ jobs:
 
       steps:
         - name: setup GIT
+          if: github.event.ref == 'refs/heads/dev'
           run: |
             echo "value of status_val is: ${{ needs.verify-deployment-in-dev-env.outputs.myoutput }}"
             git init

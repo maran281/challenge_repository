@@ -40,10 +40,14 @@ jobs:
                 terraform init
                 terraform apply -auto-approve
               env:
-                TF_VAR_sa_dev: "sa-dev-4-challenge-1-cicd@dev-project-406720.iam.gserviceaccount.com"
+                TF_VAR_sa: "sa-dev-4-challenge-1-cicd@dev-project-406720.iam.gserviceaccount.com"
                 status_val: "fail"
+                TF_VAR_projectid: "dev-project-406720"
+                TF_VAR_terraform_bucket: "tf_statebucket_4_challenge-1-cicd"
+                TF_VAR_source_code_bucket: "cf_source_code_4_challenge"
+                TF_VAR_source_bucket: "cf_source_bucket_4_challenge-1-cicd"
+                TF_VAR_target_bucket: "cf_target_bucket_4_challenge-1-cicd"
 
-#Below job is created to test the deployed cloud function
     verify-deployment-in-dev-env:
         runs-on: ubuntu-latest
 

@@ -1,3 +1,4 @@
+import os
 from google.cloud import storage
 
 def publish_file(data, context):
@@ -7,8 +8,8 @@ def publish_file(data, context):
     source_bucket_name = data['bucket']
 
     print(f"A file named:{source_file_name} is picked from source bucket:{source_bucket_name}")
-    
-    target_bucket_name = 'cf_target_bucket_4_challenge-1-cicd' 
+
+    target_bucket_name = os.environ.get('target_bucket_var')
     target_file_name = 'processed_file.txt'
 
     source_bucket_ref = storage_client.bucket(source_bucket_name)

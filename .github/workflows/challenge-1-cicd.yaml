@@ -123,7 +123,6 @@ jobs:
         - name: setup GIT
           if: github.event.ref == 'refs/heads/dev' && ${{ needs.verify-deployment-in-dev-env.outputs.myoutput }} == 'pass'
           run: |
-            echo "value of status_val is: ${{ needs.verify-deployment-in-dev-env.outputs.myoutput }}"
             git init
             git config --global user.name "maran281"
             git config --global user.email "berserker.syco@gmail.com"

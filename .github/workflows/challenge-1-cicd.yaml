@@ -121,7 +121,7 @@ jobs:
 
       steps:
         - name: setup GIT
-          if: github.event.ref == 'refs/heads/dev'
+          if: github.event.ref == 'refs/heads/dev' && ${{ needs.verify-deployment-in-dev-env.outputs.myoutput }} == 'pass'
           run: |
             echo "value of status_val is: ${{ needs.verify-deployment-in-dev-env.outputs.myoutput }}"
             git init

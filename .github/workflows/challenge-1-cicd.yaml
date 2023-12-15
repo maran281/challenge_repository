@@ -30,9 +30,9 @@ jobs:
               uses: 'google-github-actions/auth@v1'
               with:
                   token_format: 'access_token'
-                  workload_identity_provider: ${{secrets.workload_identity_provider_test_project}}
+                  workload_identity_provider: ${{secrets.workload_identity_provider_dev_project}}
                     #'projects/432600233474/locations/global/workloadIdentityPools/mypoolid-devproject-1/providers/myproviderid-devproject-1'
-                  service_account: ${{secrets.service_account_test_project}}
+                  service_account: ${{secrets.service_account_dev_project}}
                     #sa-dev-4-challenge-1-cicd@dev-project-406720.iam.gserviceaccount.com
 
             - name: 'Initializing terraform'

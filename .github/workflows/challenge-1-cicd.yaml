@@ -96,7 +96,7 @@ jobs:
             if: github.event.ref == 'refs/heads/dev'
             id: 'verify-deployment-in-dev-env'
             run: |
-              if gsutil stat gs://cf_target_bucket_4_challenge-1-cicd/processed_file.txt 
+              if gsutil stat gs://cf_target_bucket_4_challenge-1-cicd/processed_file_.txt 
               then
                 echo "status_val=pass" >> $GITHUB_OUTPUT
                 echo ""github_output variable is : ${GITHUB_OUTPUT}

@@ -5,7 +5,6 @@ on:
         branches:
             - dev
             - test
-            - main
         paths: 
             - 'challenge-1-cicd/**'
 
@@ -21,7 +20,7 @@ jobs:
 
         steps:
             - name: checkout my code
-              if: github.event.ref == 'refs/heads/dev' 
+              if: github.event.ref == 'refs/heads/dev'
               uses: actions/checkout@v3
 
             - id: 'auth'

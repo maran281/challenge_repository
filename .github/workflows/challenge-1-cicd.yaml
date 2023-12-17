@@ -68,14 +68,6 @@ jobs:
           id-token: 'write'
 
         steps:
-          - name: check_env
-            if: github.event.ref == 'refs/heads/dev'
-            run: |
-              if [["${{ needs.deployment-in-dev-env.outputs.my_env_check_output}}" == 'not_dev']]
-              then
-                exit 1
-              fi
-
           - name: checkout my code
             if: github.event.ref == 'refs/heads/dev'
             uses: actions/checkout@v3
@@ -110,7 +102,7 @@ jobs:
                 echo "File exist"
               else
                 echo "status_val=fail" >> $GITHUB_OUTPUT
-                echo "Testing failed as the file doesn't exist in the target folder. Exiting the workflow"
+                echo "Testing failed as the file doesn't exist in the target folder. Existing the workflow"
                 exit 0
               fi
 
@@ -123,6 +115,7 @@ jobs:
         - name: setup GIT
           if: github.event.ref == 'refs/heads/dev' && ${{ needs.verify-deployment-in-dev-env.outputs.myoutput }} == 'pass'
           run: |
+            echo "value of the variable is${{ needs.verify-deployment-in-dev-env.outputs.myoutput }}"
             git init
             git config --global user.name "maran281"
             git config --global user.email "berserker.syco@gmail.com"

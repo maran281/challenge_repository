@@ -37,7 +37,7 @@ jobs:
             - name: 'Initializing terraform'
               if: github.event.ref == 'refs/heads/dev'
               run: |
-                cd $GITHUB_WORKSPACE/challenge-1-cicd/terraform
+                cd $GITHUB_WORKSPACE/challenge-1-cicd/terraform/terraform_dev
                 terraform init
                 terraform apply -auto-approve
               env:

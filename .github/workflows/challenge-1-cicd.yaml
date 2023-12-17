@@ -99,12 +99,13 @@ jobs:
               if gsutil stat gs://cf_target_bucket_4_challenge-1-cicd/processed_file.txt 
               then
                 echo "status_val=pass" >> $GITHUB_OUTPUT
+                echo ""github_output variable is : ${GITHUB_OUTPUT}
                 echo "File exist"
               else
                 echo "status_val=fail" >> $GITHUB_OUTPUT
                 echo "Testing failed as the file doesn't exist in the target folder. Existing the workflow"
-                echo "value of the variable is${{ needs.verify-deployment-in-dev-env.outputs.myoutput }}"
-                exit 0
+                echo ""github_output variable is : ${GITHUB_OUTPUT}
+                echo "value of the variable is ${{ needs.verify-deployment-in-dev-env.outputs.myoutput }}"
               fi
 
 #Below job is created to merge the code in another branch if previous job is successfull
@@ -114,9 +115,9 @@ jobs:
 
       steps:
         - name: setup GIT
-          if: github.event.ref == 'refs/heads/dev' && ${{ needs.verify-deployment-in-dev-env.outputs.myoutput }} == 'pass'
+          if: github.event.ref == 'refs/heads/dev1' && ${{ needs.verify-deployment-in-dev-env.outputs.myoutput }} == 'pass'
           run: |
-            echo "value of the variable is${{ needs.verify-deployment-in-dev-env.outputs.myoutput }}"
+            echo "value of the variable is ${{ needs.verify-deployment-in-dev-env.outputs.myoutput }}"
             git init
             git config --global user.name "maran281"
             git config --global user.email "berserker.syco@gmail.com"

@@ -1,6 +1,2 @@
 Testing is going on !
-Moving this file to tes branch !
-1
-2
-3
-4
+Moving this file to test branch !

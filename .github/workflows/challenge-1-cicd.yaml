@@ -103,6 +103,7 @@ jobs:
               else
                 echo "status_val=fail" >> $GITHUB_OUTPUT
                 echo "Testing failed as the file doesn't exist in the target folder. Existing the workflow"
+                echo "value of the variable is${{ needs.verify-deployment-in-dev-env.outputs.myoutput }}"
                 exit 0
               fi
 

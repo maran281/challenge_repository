@@ -72,6 +72,7 @@ jobs:
               if: github.event.ref == 'refs/heads/dev'
               run: |
                 cd $GITHUB_WORKSPACE/challenge-1-cicd/terraform/terraform_dev
+                echo "value of projectid is: ${{needs.deployment-in-dev-env.outputs.service_acc}}"
                 terraform init
                 terraform apply -auto-approve
               env:

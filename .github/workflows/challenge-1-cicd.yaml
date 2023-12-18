@@ -30,8 +30,8 @@ jobs:
               run: |
                 if "${{github.event.ref}}" == 'refs/heads/dev'
                 then
-                  echo "::set-output name=s_account::${{secrets.service_account_dev_project}}"
-                  echo "::set-output name=p_id::${{secrets.PROJECTID_DEV}}"
+                  echo "s_account=${{secrets.service_account_dev_project}}" >> $GITHUB_ENV
+                  echo "Using a service account: $s_account"
                   echo "Value of the project id is: ${{steps.setting_var.outputs.p_id}}"
                   echo "::set-output name=sc_bucket::${{secrets.SOURCE_CODE_BUCKET_DEV}}"
                   echo "::set-output name=s_bucket::${{secrets.SOURCE_BUCKET_DEV}}"

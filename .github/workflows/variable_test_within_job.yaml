@@ -1,0 +1,27 @@
+name: "testing variable creation and sharing within a job"
+
+on:
+    push:
+        branches: 
+            - dev
+        paths: 
+            - 'testFolder'
+
+jobs:
+    testing_started:
+        runs-on: ubuntu
+        
+        outputs:
+            myVar1:
+        
+        steps:
+            - name: checkout my code
+              uses: actions/checkout@v3
+            
+            - name: check the variable
+              id: 'setVariable'
+              run: |
+                echo "myVar1=manojrana" >> $GITHUB_OUTPUT
+                echo "value of myVar1 is: $myVar1"
+                echo "myVar2=rahulrana" >> $GITHUB_OUTPUT
+                echo "value of myVar2 is: $myVar2"

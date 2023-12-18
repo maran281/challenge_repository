@@ -98,7 +98,7 @@ jobs:
               if gsutil stat gs://cf_target_bucket_4_challenge-1-cicd/processed_file.txt 
               then
                 echo "status_val=pass" >> $GITHUB_OUTPUT
-                echo "github_output variable is : ${GITHUB_OUTPUT}"
+                echo "github_output variable is : ${status_val}"
                 echo "File exist"
               else
                 echo "status_val=fail" >> $GITHUB_OUTPUT

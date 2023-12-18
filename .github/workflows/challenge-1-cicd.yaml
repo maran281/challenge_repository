@@ -28,8 +28,7 @@ jobs:
             - name: set variables for the workflow
               id: setting_var
               run: |
-                if "${{github.event.ref}}" == 'refs/heads/dev'
-                then
+                if ["${{github.event.ref}}" == 'refs/heads/dev']; then
                   echo "s_account=${{secrets.service_account_dev_project}}" >> $GITHUB_ENV
                   echo "Using a service account: $s_account"
                 fi

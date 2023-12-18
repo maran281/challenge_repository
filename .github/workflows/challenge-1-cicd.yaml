@@ -43,6 +43,7 @@ jobs:
                   echo "::set-output name=sc_bucket::${{secrets.SOURCE_CODE_BUCKET_TEST}}"
                   echo "::set-output name=s_bucket::${{secrets.SOURCE_BUCKET_TEST}}"
                   echo "::set-output name=t_bucket::${{secrets.TARGET_BUCKET_TEST}}"
+                fi
 
             - name: checkout my code from test branch
               uses: actions/checkout@v3

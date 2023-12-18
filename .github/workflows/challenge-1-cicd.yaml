@@ -75,7 +75,7 @@ jobs:
                 terraform init
                 terraform apply -auto-approve
               env:
-                TF_VAR_sa: ${{needs.deployment-in-dev-env.outputs.s_account}} 
+                TF_VAR_sa: ${{needs.deployment-in-dev-env.outputs.service_acc}} 
                 #"sa-dev-4-challenge-1-cicd@dev-project-406720.iam.gserviceaccount.com"
                 status_val: "fail"
                 TF_VAR_projectid: ${{needs.deployment-in-dev-env.outputs.projectid}} 

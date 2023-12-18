@@ -24,7 +24,7 @@ jobs:
               env:
                 myVar1: "hi_Manoj"
               run: |
-                echo "value of myVar1 is in next step"
+                echo "value of myVar1 is in step 1 is: $myVar1"
             
             - name: check the variable
               run: |

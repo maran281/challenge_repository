@@ -10,10 +10,7 @@ on:
 jobs:
     testing_started:
         runs-on: ubuntu-latest
-        
-        outputs:
-            myVar1:
-        
+                
         steps:
             - name: checkout my code
               uses: actions/checkout@v3

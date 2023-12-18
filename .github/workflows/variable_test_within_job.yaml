@@ -5,7 +5,7 @@ on:
         branches: 
             - dev
         paths: 
-            - 'testFolder'
+            - 'testFolder/**'
 
 jobs:
     testing_started:

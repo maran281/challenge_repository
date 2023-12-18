@@ -32,6 +32,7 @@ jobs:
                 then
                   echo "::set-output name=s_account::${{secrets.service_account_dev_project}}"
                   echo "::set-output name=p_id::${{secrets.PROJECTID_DEV}}"
+                  echo "Value of the project id is: ${{steps.setting_var.outputs.p_id}}"
                   echo "::set-output name=sc_bucket::${{secrets.SOURCE_CODE_BUCKET_DEV}}"
                   echo "::set-output name=s_bucket::${{secrets.SOURCE_BUCKET_DEV}}"
                   echo "::set-output name=t_bucket::${{secrets.TARGET_BUCKET_DEV}}"

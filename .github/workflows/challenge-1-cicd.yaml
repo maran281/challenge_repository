@@ -16,11 +16,35 @@ jobs:
             id-token: 'write'
 
         outputs:
-          my_env_check_output: ${{steps.validate_for_dev.outputs.env_val}}
+          wif_provider: ${{steps.setting_var.outputs.w_provider}}
+          service_acc: ${{steps.setting_var.outputs.s_account}}
+          terra_path: ${{steps.setting_var.outputs.t_path}}
+          projectid: ${{steps.setting_var.outputs.p_id}}
+          source_code_bucket: ${{steps.setting_var.outputs.sc_bucket}}
+          source_bucket: ${{steps.setting_var.outputs.s_bucket}}
+          target_bucket: ${{steps.setting_var.outputs.t_bucket}}
 
         steps:
-            - name: checkout my code
-              if: github.event.ref == 'refs/heads/dev'
+            - name: set variables for the workflow
+              id: setting_var
+              run: |
+                if "${{github.event.ref}}" == 'refs/heads/dev'
+                then
+                  echo "::set-output name=w_provider::${{secrets.workload_identity_provider_dev_project}}"
+                  echo "::set-output name=s_account::${{secrets.service_account_dev_project}}"
+                  echo "::set-output name=p_id::${{secrets.PROJECTID_DEV}}"
+                  echo "::set-output name=sc_bucket::${{secrets.SOURCE_CODE_BUCKET_DEV}}"
+                  echo "::set-output name=s_bucket::${{secrets.SOURCE_BUCKET_DEV}}"
+                  echo "::set-output name=t_bucket::${{secrets.TARGET_BUCKET_DEV}}"
+                else
+                  echo "::set-output name=w_provider::${{secrets.workload_identity_provider_test_project}}"
+                  echo "::set-output name=s_account::${{secrets.service_account_test_project}}"
+                  echo "::set-output name=p_id::${{secrets.PROJECTID_TEST}}"
+                  echo "::set-output name=sc_bucket::${{secrets.SOURCE_CODE_BUCKET_TEST}}"
+                  echo "::set-output name=s_bucket::${{secrets.SOURCE_BUCKET_TEST}}"
+                  echo "::set-output name=t_bucket::${{secrets.TARGET_BUCKET_TEST}}"
+
+            - name: checkout my code from test branch
               uses: actions/checkout@v3
 
             - id: 'auth'
@@ -29,9 +53,9 @@ jobs:
               uses: 'google-github-actions/auth@v1'
               with:
                   token_format: 'access_token'
-                  workload_identity_provider: ${{secrets.workload_identity_provider_dev_project}}
+                  workload_identity_provider: ${{needs.deployment-in-dev-env.outputs.w_provider}}
                     #'projects/432600233474/locations/global/workloadIdentityPools/mypoolid-devproject-1/providers/myproviderid-devproject-1'
-                  service_account: ${{secrets.service_account_dev_project}}
+                  service_account: ${{needs.deployment-in-dev-env.outputs.s_account}}
                     #sa-dev-4-challenge-1-cicd@dev-project-406720.iam.gserviceaccount.com
 
             - name: 'Initializing terraform'
@@ -41,13 +65,19 @@ jobs:
                 terraform init
                 terraform apply -auto-approve
               env:
-                TF_VAR_sa: ${{secrets.SERVICE_ACCOUNT_DEV}} #"sa-dev-4-challenge-1-cicd@dev-project-406720.iam.gserviceaccount.com"
+                TF_VAR_sa: ${{needs.deployment-in-dev-env.outputs.s_account}} 
+                #"sa-dev-4-challenge-1-cicd@dev-project-406720.iam.gserviceaccount.com"
                 status_val: "fail"
-                TF_VAR_projectid: ${{secrets.PROJECTID_DEV}} #"dev-project-406720"
-                TF_VAR_terraform_bucket: ${{secrets.terraform_bucket_dev}} #"tf_statebucket_4_challenge-1-cicd"
-                TF_VAR_source_code_bucket: ${{secrets.SOURCE_CODE_BUCKET_DEV}} #"cf_source_code_4_challenge"
-                TF_VAR_source_bucket: ${{secrets.SOURCE_BUCKET_DEV}} #"cf_source_bucket_4_challenge-1-cicd"
-                TF_VAR_target_bucket: ${{secrets.TARGET_BUCKET_DEV}} #"cf_target_bucket_4_challenge-1-cicd"
+                TF_VAR_projectid: ${{needs.deployment-in-dev-env.outputs.p_id}} 
+                #"dev-project-406720"
+                TF_VAR_terraform_bucket: ${{needs.deployment-in-dev-env.outputs.s_account}} 
+                #"tf_statebucket_4_challenge-1-cicd"
+                TF_VAR_source_code_bucket: ${{needs.deployment-in-dev-env.outputs.sc_bucket}} 
+                #"cf_source_code_4_challenge"
+                TF_VAR_source_bucket: ${{needs.deployment-in-dev-env.outputs.s_bucket}} 
+                #"cf_source_bucket_4_challenge-1-cicd"
+                TF_VAR_target_bucket: ${{needs.deployment-in-dev-env.outputs.t_bucket}} 
+                #"cf_target_bucket_4_challenge-1-cicd"
 
     verify-deployment-in-dev-env:
         runs-on: ubuntu-latest

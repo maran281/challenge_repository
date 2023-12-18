@@ -21,9 +21,7 @@ jobs:
             
             - name: check the variable
               id: 'setVariable'
+              env:
+                myVar1: "hi_Manoj"
               run: |
-                echo "myVar1=manojrana" >> $GITHUB_OUTPUT
-                echo "value of myVar1 is: ${{steps.setVariable.outputs.myVar_one}}"
-                echo "value of myVar1 is: ${{steps.setVariable.outputs.myVar1}}"
-                echo "value of myVar1 is: ${myVar_one}"
-                echo "value of myVar1 is: $myVar_one"
+                echo "value of myVar1 is: $myVar1"

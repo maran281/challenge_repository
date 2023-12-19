@@ -23,13 +23,14 @@ jobs:
               uses: actions/checkout@v3
 
             - name: set environment variables
+              id: set_env_var
               run: |
                 if [ ${{github.event.ref}} == 'refs/heads/dev' ]; then
-                  echo "p_i_dev = dev-project-406720" >> $GITHUB_ENV
-                  echo "s_a_dev = ${{secrets.service_account_dev_project}}" >> $GITHUB_ENV
-                  echo "sc_b_dev = cf_source_code_4_challenge" >> $GITHUB_ENV
-                  echo "s_b_dev = cf_source_bucket_4_challenge-1-cicd" >> $GITHUB_ENV
-                  echo "t_b_dev = cf_target_bucket_4_challenge-1-cicd" >> $GITHUB_ENV
+                  echo "p_i_dev=dev-project-406720" >> $GITHUB_ENV
+                  echo "s_a_dev=${{secrets.service_account_dev_project}}" >> $GITHUB_ENV
+                  echo "sc_b_dev=cf_source_code_4_challenge" >> $GITHUB_ENV
+                  echo "s_b_dev=cf_source_bucket_4_challenge-1-cicd" >> $GITHUB_ENV
+                  echo "t_b_dev=cf_target_bucket_4_challenge-1-cicd" >> $GITHUB_ENV
                 else
                   echo "p_i_dev = intense-base-408020" >> $GITHUB_ENV
                   echo "s_a_dev = ${{secrets.service_account_test_project}}" >> $GITHUB_ENV

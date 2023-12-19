@@ -13,21 +13,29 @@ jobs:
         runs-on: ubuntu-latest
         permissions: 
             contents: 'read'
-            id-token: 'write'
-        env:
-          p_i_dev: ${{secrets.PROJECTID_DEV}}
-          s_a_dev: ${{secrets.service_account_dev_project}}
-          sc_b_dev: ${{secrets.SOURCE_CODE_BUCKET_DEV}}
-          s_b_dev: ${{secrets.SOURCE_BUCKET_DEV}}
-          t_b_dev: ${{secrets.TARGET_BUCKET_DEV}}          
+            id-token: 'write'       
 
         outputs:
           my_env_check_output: ${{steps.validate_for_dev.outputs.env_val}}
 
         steps:
             - name: checkout my code
-              if: github.event.ref == 'refs/heads/dev'
               uses: actions/checkout@v3
+
+            - name: set environment variables
+              run: |
+                if [ ${{github.event.ref}} == 'refs/heads/dev' ]; then
+                  echo "p_i_dev = dev-project-406720" >> $GITHUB_ENV
+                  echo "s_a_dev = ${{secrets.service_account_dev_project}}" >> $GITHUB_ENV
+                  echo "sc_b_dev = cf_source_code_4_challenge" >> $GITHUB_ENV
+                  echo "s_b_dev = cf_source_bucket_4_challenge-1-cicd" >> $GITHUB_ENV
+                  echo "t_b_dev = cf_target_bucket_4_challenge-1-cicd" >> $GITHUB_ENV
+                else
+                  echo "p_i_dev = intense-base-408020" >> $GITHUB_ENV
+                  echo "s_a_dev = ${{secrets.service_account_test_project}}" >> $GITHUB_ENV
+                  echo "sc_b_dev = cf_source_code_4_challenge_test" >> $GITHUB_ENV
+                  echo "s_b_dev = cf_source_bucket_4_challenge-1-cicd_test" >> $GITHUB_ENV
+                  echo "t_b_dev = cf_target_bucket_4_challenge-1-cicd_test" >> $GITHUB_ENV
 
             - id: 'auth'
               if: github.event.ref == 'refs/heads/dev'

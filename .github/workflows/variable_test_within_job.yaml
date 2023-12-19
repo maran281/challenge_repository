@@ -19,14 +19,25 @@ jobs:
             - name: checkout my code
               uses: actions/checkout@v3
             
-            - name: set and check the a step's env variable
-              id: 'setVariable'
+            - name: set and check the a STEPS's env variable
               env:
                 myVar1: "hi_Manoj"
               run: |
                 echo "value of step's env variable is: $myVar1"
             
-            - name: set and check the job's env variable
+            - name: set and check the JOBS's env variable
               run: |
-                echo "value of job's env variable 1 is: $jobEnvVar_one"
-                echo "value of job's env variable 2 is: $jobEnvVar_two"
+                echo "value of job's env variable 'jobEnvVar_one' is: $jobEnvVar_one"
+                echo "value of job's env variable 'jobEnvVar_two' is: $jobEnvVar_two"
+
+            - name: set and check variables between the steps within a job
+              id: step_1
+              run: |
+                echo "var_between_jobs_1=var_one" >> $GITHUB_ENV
+                echo "var_between_jobs_2=var_two" >> $GITHUB_ENV
+
+            - name: set and check variables between the steps within a job
+              id: step_2
+              run: |
+                echo " value of var_between_jobs_1 is: ${{env.var_between_jobs_1}}"
+                echo " value of var_between_jobs_2 is: ${{env.var_between_jobs_2}}"

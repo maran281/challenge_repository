@@ -5,7 +5,7 @@ provider "google" {
 
 terraform {
   backend "gcs" {
-    bucket = var.terraform_bucket #"tf_statebucket_4_challenge-1-cicd"
+    bucket = "tf_statebucket_4_challenge-1-cicd_test"
   }
 }
 

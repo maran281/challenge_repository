@@ -57,4 +57,4 @@ jobs:
               id: step_02
               run: |
                 echo " value of var_between_steps_01 is: ${{env.var_between_steps_01}}"
-                echo " value of var_between_steps_02 is: ${{env.var_between_steps_01}}"
+                echo " value of var_between_steps_02 is: ${{env.var_between_steps_02}}"

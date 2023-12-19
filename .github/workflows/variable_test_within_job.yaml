@@ -45,7 +45,7 @@ jobs:
             - name: Only setting a variables inside a step using if condition
               id: step_01
               run: |
-                if [${{github.event.ref}} == 'refs/heads/dev']; then
+                if [ ${{github.event.ref}} == 'refs/heads/dev' ]; then
                   echo "var_between_steps_01=var_one" >> $GITHUB_ENV
                 else
                   echo "var_between_steps_02=var_two" >> $GITHUB_ENV

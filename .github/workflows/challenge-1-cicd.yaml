@@ -52,6 +52,7 @@ jobs:
             - name: 'Initializing terraform'
               if: github.event.ref == 'refs/heads/dev'
               run: |
+                echo "value of p_i_dev is: ${{env.p_i_dev}}"
                 cd $GITHUB_WORKSPACE/challenge-1-cicd/terraform/terraform_dev
                 terraform init
                 terraform apply -auto-approve

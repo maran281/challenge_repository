@@ -31,6 +31,7 @@ jobs:
                   echo "sc_b_dev=cf_source_code_4_challenge" >> $GITHUB_ENV
                   echo "s_b_dev=cf_source_bucket_4_challenge-1-cicd" >> $GITHUB_ENV
                   echo "t_b_dev=cf_target_bucket_4_challenge-1-cicd" >> $GITHUB_ENV
+                  echo "terraform_directory=terraform_dev" >> $GITHUB_ENV
                 else
                   echo "p_i_dev = intense-base-408020" >> $GITHUB_ENV
                   echo "s_a_dev = ${{secrets.service_account_test_project}}" >> $GITHUB_ENV
@@ -54,7 +55,7 @@ jobs:
               if: github.event.ref == 'refs/heads/dev'
               run: |
                 echo "value of p_i_dev is: ${{env.p_i_dev}}"
-                cd $GITHUB_WORKSPACE/challenge-1-cicd/terraform/terraform_dev
+                cd $GITHUB_WORKSPACE/challenge-1-cicd/terraform/${{env.terraform_directory}}
                 terraform init
                 terraform apply -auto-approve
               env:
